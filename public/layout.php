@@ -1,63 +1,153 @@
 <!DOCTYPE html>
+
 <html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Controle</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Sistema de Controle</title>
+
+<link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+>
+
+
 </head>
 
 <body class="bg-light">
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
-        <div class="container-fluid">
 
-            <a class="navbar-brand" href="index.php">Sistema de Controle</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSistema">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+    <div class="container-fluid">
 
-            <div class="collapse navbar-collapse" id="navbarSistema">
+        <a class="navbar-brand" href="index.php">
+            Sistema de Controle
+        </a>
 
-                <ul class="navbar-nav me-auto">
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSistema"
+        >
 
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                            Pessoas
-                        </a>
+            <span class="navbar-toggler-icon"></span>
 
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="pessoa-create.php">Cadastrar</a></li>
-                            <li><a class="dropdown-item" href="listar.php">Listar</a></li>
-                        </ul>
-                    </li>
+        </button>
 
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                            Movimentações
-                        </a>
+        <div
+            class="collapse navbar-collapse"
+            id="navbarSistema"
+        >
 
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="movimentacao-create.php">Cadastrar</a></li>
-                            <li><a class="dropdown-item" href="movimentacao-listar.php">Listar</a></li>
-                        </ul>
-                    </li>
+            <ul class="navbar-nav me-auto">
 
-                </ul>
+                <!-- PESSOAS -->
 
-            </div>
+                <li class="nav-item dropdown">
+
+                    <a
+                        class="nav-link dropdown-toggle"
+                        href="#"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                    >
+                        Pessoas
+                    </a>
+
+                    <ul class="dropdown-menu">
+
+                        <li>
+                            <a
+                                class="dropdown-item"
+                                href="pessoa-create.php"
+                            >
+                                Cadastrar
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                class="dropdown-item"
+                                href="listar.php"
+                            >
+                                Listar
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                class="dropdown-item"
+                                href="listar.php"
+                            >
+                                Pesquisar
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </li>
+
+                <!-- MOVIMENTAÇÕES -->
+
+                <li class="nav-item dropdown">
+
+                    <a
+                        class="nav-link dropdown-toggle"
+                        href="#"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                    >
+                        Movimentações
+                    </a>
+
+                    <ul class="dropdown-menu">
+
+                        <li>
+                            <a
+                                class="dropdown-item"
+                                href="movimentacao-create.php"
+                            >
+                                Nova movimentação
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                class="dropdown-item"
+                                href="movimentacao-listar.php"
+                            >
+                                Listar movimentações
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </li>
+
+            </ul>
 
         </div>
-    </nav>
 
-    <div class="container mt-4">
-        <?php echo isset($content) ? $content : ""; ?>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</nav>
+
+<div class="container mt-4">
+
+    <?php echo isset($content) ? $content : ""; ?>
+
+</div>
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+></script>
+
 
 </body>
 
