@@ -120,7 +120,7 @@ class MovimentacaoDao
         return $resultado["saldo"];
     }
 
-    // HISTÓRICO
+    // HISTÓRICO POR PESSOA
     public function listarPorPessoa($idPessoa)
     {
         $sql = "SELECT *
@@ -131,6 +131,24 @@ class MovimentacaoDao
         $stmt = $this->conn->prepare($sql);
 
         $stmt->bind_param("i", $idPessoa);
+
+        $stmt->execute();
+
+        return $stmt->get_result();
+    }
+
+    // LISTAR TODAS AS MOVIMENTAÇÕES EXISTENTES
+    public function listarTodas()
+    {
+        $sql = "SELECT
+                    movimentacao.*,
+                    pessoas.nome
+                FROM movimentacao
+                INNER JOIN pessoas
+                    ON movimentacao.idPessoa = pessoas.id
+                ORDER BY DataOperacao DESC";
+
+        $stmt = $this->conn->prepare($sql);
 
         $stmt->execute();
 

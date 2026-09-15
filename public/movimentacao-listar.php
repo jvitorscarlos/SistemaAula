@@ -1,12 +1,10 @@
 <?php
 
-require_once "../src/DAO/PessoaDao.php";
 require_once "../src/DAO/MovimentacaoDao.php";
 
-$pessoaDAO = new PessoaDAO();
 $movimentacaoDAO = new MovimentacaoDao();
 
-$pessoas = $pessoaDAO->listarTodos();
+$movimentacoes = $movimentacaoDAO->listarTodas();
 
 ob_start();
 
@@ -14,136 +12,89 @@ ob_start();
 
 <h1 class="mb-4">Movimentações</h1>
 
-<?php while ($pessoa = $pessoas->fetch_assoc()) { ?>
+<div class="table-responsive">
 
-```
-<?php
+    <table class="table table-bordered table-striped table-hover">
 
-$saldo = $movimentacaoDAO->buscarSaldo($pessoa["id"]);
-$movimentacoes = $movimentacaoDAO->listarPorPessoa($pessoa["id"]);
+        <thead class="table-dark">
 
-?>
+            <tr>
+                <th>Pessoa</th>
+                <th>Tipo</th>
+                <th>Valor</th>
+                <th>Data</th>
+                <th>Observação</th>
+            </tr>
 
-<div class="card mb-4 shadow-sm">
+        </thead>
 
-    <div class="card-body">
+        <tbody>
 
-        <h2 class="card-title">
-            <?= $pessoa["nome"] ?>
-        </h2>
+            <?php if ($movimentacoes->num_rows > 0) { ?>
 
-        <p class="fs-5">
-            <strong>Saldo:</strong>
-            R$ <?= number_format($saldo, 2, ",", ".") ?>
-        </p>
+                <?php while ($movimentacao = $movimentacoes->fetch_assoc()) { ?>
 
-        <div class="mb-3">
+                    <tr>
 
-            <button
-                class="btn btn-success me-2"
-                onclick="window.location.href='movimentacao-create.php?tipo=deposito&idPessoa=<?= $pessoa["id"] ?>'">
-                Depositar
-            </button>
+                        <td>
+                            <?= $movimentacao["nome"] ?>
+                        </td>
 
-            <button
-                class="btn btn-danger me-2"
-                onclick="window.location.href='movimentacao-create.php?tipo=saque&idPessoa=<?= $pessoa["id"] ?>'">
-                Sacar
-            </button>
+                        <td>
 
-            <button
-                class="btn btn-primary"
-                onclick="window.location.href='movimentacao-create.php?tipo=transferencia&idPessoa=<?= $pessoa["id"] ?>'">
-                Transferir
-            </button>
+                            <?php
 
-        </div>
+                            if ($movimentacao["Credito"] > 0) {
+                                echo "Crédito";
+                            } else {
+                                echo "Débito";
+                            }
 
-        <h3 class="mt-4">Histórico</h3>
+                            ?>
 
-        <?php if ($movimentacoes->num_rows > 0) { ?>
+                        </td>
 
-            <div class="table-responsive">
+                        <td>
+                            R$
+                            <?= number_format(
+                                $movimentacao["Credito"] > 0
+                                    ? $movimentacao["Credito"]
+                                    : $movimentacao["Debito"],
+                                2,
+                                ",",
+                                "."
+                            ) ?>
+                        </td>
 
-                <table class="table table-striped table-hover">
+                        <td>
+                            <?= $movimentacao["DataOperacao"] ?>
+                        </td>
 
-                    <thead class="table-dark">
+                        <td>
+                            <?= $movimentacao["Observacao"] ?>
+                        </td>
 
-                        <tr>
-                            <th>Tipo</th>
-                            <th>Valor</th>
-                            <th>Data</th>
-                            <th>Observação</th>
-                        </tr>
+                    </tr>
 
-                    </thead>
+                <?php } ?>
 
-                    <tbody>
+            <?php } else { ?>
 
-                        <?php while ($movimentacao = $movimentacoes->fetch_assoc()) { ?>
+                <tr>
 
-                            <tr>
+                    <td colspan="5" class="text-center text-muted">
+                        Nenhuma movimentação encontrada.
+                    </td>
 
-                                <td>
+                </tr>
 
-                                    <?php
+            <?php } ?>
 
-                                    if ($movimentacao["Credito"] > 0) {
-                                        echo "Crédito";
-                                    } else {
-                                        echo "Débito";
-                                    }
+        </tbody>
 
-                                    ?>
-
-                                </td>
-
-                                <td>
-
-                                    R$
-                                    <?= number_format(
-                                        $movimentacao["Credito"] > 0
-                                            ? $movimentacao["Credito"]
-                                            : $movimentacao["Debito"],
-                                        2,
-                                        ",",
-                                        "."
-                                    ) ?>
-
-                                </td>
-
-                                <td>
-                                    <?= $movimentacao["DataOperacao"] ?>
-                                </td>
-
-                                <td>
-                                    <?= $movimentacao["Observacao"] ?>
-                                </td>
-
-                            </tr>
-
-                        <?php } ?>
-
-                    </tbody>
-
-                </table>
-
-            </div>
-
-        <?php } else { ?>
-
-            <p class="text-muted">
-                Nenhuma movimentação encontrada.
-            </p>
-
-        <?php } ?>
-
-    </div>
+    </table>
 
 </div>
-```
-
-<?php } ?>
 
 <?php
 

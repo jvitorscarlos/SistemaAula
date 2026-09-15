@@ -1,3 +1,4 @@
+
 <?php
 
 require_once "../src/DAO/PessoaDao.php";
@@ -14,119 +15,118 @@ ob_start();
 
 <form action="movimentacao-processar.php" method="POST">
 
-<div class="mb-3">
+    <div class="mb-3">
 
-    <label for="tipo" class="form-label">
-        Tipo da movimentação:
-    </label>
+        <label for="tipo" class="form-label">
+            Tipo da movimentação:
+        </label>
 
-    <select
-        name="tipo"
-        id="tipo"
-        class="form-select"
-        required
-        onchange="alterarTipo()"
-    >
+        <select
+            name="tipo"
+            id="tipo"
+            class="form-select"
+            required
+            onchange="alterarTipo()"
+        >
 
-        <option value="">Selecione o tipo</option>
-        <option value="deposito">Depositar</option>
-        <option value="saque">Sacar</option>
-        <option value="transferencia">Transferir</option>
+            <option value="">Selecione o tipo</option>
+            <option value="deposito">Depositar</option>
+            <option value="saque">Sacar</option>
+            <option value="transferencia">Transferir</option>
 
-    </select>
+        </select>
 
-</div>
+    </div>
 
-<div class="mb-3">
+    <div class="mb-3">
 
-    <label for="pesquisaPessoa" class="form-label">
-        Pessoa:
-    </label>
+        <label for="pesquisaPessoa" class="form-label">
+            Pessoa:
+        </label>
 
-    <input
-        type="text"
-        id="pesquisaPessoa"
-        class="form-control"
-        placeholder="Digite o nome da pessoa..."
-        onkeyup="pesquisarPessoa()"
-        autocomplete="off"
-    >
+        <input
+            type="text"
+            id="pesquisaPessoa"
+            class="form-control"
+            placeholder="Digite o nome da pessoa..."
+            onkeyup="pesquisarPessoa()"
+            autocomplete="off"
+        >
 
-    <div id="resultadoPessoa" class="mt-2"></div>
+        <div id="resultadoPessoa" class="list-group mt-1"></div>
 
-    <input
-        type="hidden"
-        name="idPessoa"
-        id="idPessoa"
-        required
-    >
+        <input
+            type="hidden"
+            name="idPessoa"
+            id="idPessoa"
+            required
+        >
 
-</div>
+    </div>
 
-<div id="destino" class="mb-3" style="display: none;">
+    <div id="destino" class="mb-3" style="display: none;">
 
-    <label for="pesquisaDestino" class="form-label">
-        Pessoa de destino:
-    </label>
+        <label for="pesquisaDestino" class="form-label">
+            Pessoa de destino:
+        </label>
 
-    <input
-        type="text"
-        id="pesquisaDestino"
-        class="form-control"
-        placeholder="Digite o nome da pessoa..."
-        onkeyup="pesquisarDestino()"
-        autocomplete="off"
-    >
+        <input
+            type="text"
+            id="pesquisaDestino"
+            class="form-control"
+            placeholder="Digite o nome da pessoa..."
+            onkeyup="pesquisarDestino()"
+            autocomplete="off"
+        >
 
-    <div id="resultadoDestino" class="mt-2"></div>
+        <div id="resultadoDestino" class="list-group mt-1"></div>
 
-    <input
-        type="hidden"
-        name="idPessoaDestino"
-        id="idPessoaDestino"
-    >
+        <input
+            type="hidden"
+            name="idPessoaDestino"
+            id="idPessoaDestino"
+        >
 
-</div>
+    </div>
 
-<div class="mb-3">
+    <div class="mb-3">
 
-    <label for="valor" class="form-label">
-        Valor:
-    </label>
+        <label for="valor" class="form-label">
+            Valor:
+        </label>
 
-    <input
-        type="number"
-        name="valor"
-        id="valor"
-        class="form-control"
-        step="0.01"
-        min="0.01"
-        required
-    >
+        <input
+            type="number"
+            name="valor"
+            id="valor"
+            class="form-control"
+            step="0.01"
+            min="0.01"
+            required
+        >
 
-</div>
+    </div>
 
-<div class="mb-3">
+    <div class="mb-3">
 
-    <label for="observacao" class="form-label">
-        Observação:
-    </label>
+        <label for="observacao" class="form-label">
+            Observação:
+        </label>
 
-    <input
-        type="text"
-        name="observacao"
-        id="observacao"
-        class="form-control"
-        maxlength="255"
-        placeholder="Digite uma observação..."
-    >
+        <input
+            type="text"
+            name="observacao"
+            id="observacao"
+            class="form-control"
+            maxlength="255"
+            placeholder="Digite uma observação..."
+        >
 
-</div>
+    </div>
 
-<button type="submit" class="btn btn-primary">
-    Realizar movimentação
-</button>
-
+    <button type="submit" class="btn btn-primary">
+        Realizar movimentação
+    </button>
 
 </form>
 
@@ -175,22 +175,23 @@ function pesquisarPessoa() {
 
         if (pessoa.nome.toLowerCase().includes(pesquisa)) {
 
-            var botao = document.createElement("button");
+            var item = document.createElement("button");
 
-            botao.type = "button";
-            botao.className = "btn btn-outline-primary me-2 mb-2";
-            botao.textContent = pessoa.nome;
+            item.type = "button";
+            item.className = "list-group-item list-group-item-action";
+            item.textContent = pessoa.nome;
 
-            botao.onclick = function() {
+            item.onclick = function() {
 
                 document.getElementById("idPessoa").value = pessoa.id;
+
                 document.getElementById("pesquisaPessoa").value = pessoa.nome;
 
-                resultado.innerHTML =
-                    '<span class="badge text-bg-success">Pessoa selecionada</span>';
+                resultado.innerHTML = "";
+
             };
 
-            resultado.appendChild(botao);
+            resultado.appendChild(item);
         }
 
     });
@@ -216,22 +217,23 @@ function pesquisarDestino() {
 
         if (pessoa.nome.toLowerCase().includes(pesquisa)) {
 
-            var botao = document.createElement("button");
+            var item = document.createElement("button");
 
-            botao.type = "button";
-            botao.className = "btn btn-outline-secondary me-2 mb-2";
-            botao.textContent = pessoa.nome;
+            item.type = "button";
+            item.className = "list-group-item list-group-item-action";
+            item.textContent = pessoa.nome;
 
-            botao.onclick = function() {
+            item.onclick = function() {
 
                 document.getElementById("idPessoaDestino").value = pessoa.id;
+
                 document.getElementById("pesquisaDestino").value = pessoa.nome;
 
-                resultado.innerHTML =
-                    '<span class="badge text-bg-success">Pessoa selecionada</span>';
+                resultado.innerHTML = "";
+
             };
 
-            resultado.appendChild(botao);
+            resultado.appendChild(item);
         }
 
     });
@@ -253,7 +255,9 @@ function alterarTipo() {
         destino.style.display = "none";
 
         document.getElementById("idPessoaDestino").value = "";
+
         document.getElementById("pesquisaDestino").value = "";
+
         document.getElementById("resultadoDestino").innerHTML = "";
 
     }
